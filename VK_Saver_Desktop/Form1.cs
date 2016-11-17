@@ -23,7 +23,7 @@ namespace VK_Saver_Desktop
     {
         public ulong appId = Convert.ToUInt32(ConfigurationManager.AppSettings["appId"]);
         VkApi api;
-
+        String folderName;
         public Form1()
         {
 
@@ -68,13 +68,14 @@ namespace VK_Saver_Desktop
         }
         VkCollection<Photo> GetAlbumAsCollection(PhotoAlbum album)
         {
+            folderName = FolderCheck(album.Title.ToString(), album.OwnerId.ToString());
+
             return api.Photo.Get(new PhotoGetParams { OwnerId = album.OwnerId, AlbumId = PhotoAlbumType.Id(album.Id) });
 
         }
-        void DownLoadAlbum(PhotoAlbum alb)
+        void DownLoadCollection(VkCollection<Photo> list)
         {
-            var list = GetAlbumAsCollection(alb);
-            var folderName = FolderCheck(alb.Title.ToString(), alb.OwnerId.ToString());
+            
             using (WebClient client = new WebClient())
             {
 
@@ -146,8 +147,32 @@ namespace VK_Saver_Desktop
             DownloadButton.Enabled = false;
             var selected = AlbumsList.Items[AlbumsList.SelectedIndex].ToString();
             var listAlbums = api.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = api.UserId });
-            var exactAlbum = listAlbums.First(x => x.Title == selected);
-            DownLoadAlbum(exactAlbum);
+            VkCollection<Photo> exactColl;
+            if (selected == "Saved")
+            {
+            
+                exactColl = api.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Saved, OwnerId = api.UserId });
+                folderName = FolderCheck("Saved", exactColl[0].OwnerId.ToString());                
+                //folderName = FolderCheck(exactColl[0]Title.ToString(), album.OwnerId.ToString());
+
+            }
+
+            else if (selected == "Wall")
+            {
+                exactColl = api.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Wall, OwnerId = api.UserId });
+                folderName = FolderCheck("Wall", exactColl[0].OwnerId.ToString());
+
+            }
+            else if (selected == "Profile")
+            {
+                exactColl = api.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Profile, OwnerId = api.UserId });
+                folderName = FolderCheck("Profile", exactColl[0].OwnerId.ToString());
+
+            }
+            else
+                exactColl = GetAlbumAsCollection(listAlbums.First(x => x.Title == selected));
+            
+            DownLoadCollection(exactColl);
             DownloadButton.Enabled = true;
 
         }
