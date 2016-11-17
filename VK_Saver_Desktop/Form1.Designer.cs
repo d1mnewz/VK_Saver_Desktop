@@ -33,6 +33,9 @@
             this.LogLabel = new System.Windows.Forms.Label();
             this.PassLabel = new System.Windows.Forms.Label();
             this.SubmitButton = new System.Windows.Forms.Button();
+            this.CountLabel = new System.Windows.Forms.Label();
+            this.AlbumsList = new System.Windows.Forms.ListBox();
+            this.DownloadButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LoginBox
@@ -78,11 +81,42 @@
             this.SubmitButton.UseVisualStyleBackColor = true;
             this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
+            // CountLabel
+            // 
+            this.CountLabel.AutoSize = true;
+            this.CountLabel.Location = new System.Drawing.Point(227, 9);
+            this.CountLabel.Name = "CountLabel";
+            this.CountLabel.Size = new System.Drawing.Size(35, 13);
+            this.CountLabel.TabIndex = 5;
+            this.CountLabel.Text = "label1";
+            // 
+            // AlbumsList
+            // 
+            this.AlbumsList.Enabled = false;
+            this.AlbumsList.FormattingEnabled = true;
+            this.AlbumsList.Location = new System.Drawing.Point(15, 127);
+            this.AlbumsList.Name = "AlbumsList";
+            this.AlbumsList.Size = new System.Drawing.Size(120, 95);
+            this.AlbumsList.TabIndex = 6;
+            // 
+            // DownloadButton
+            // 
+            this.DownloadButton.Location = new System.Drawing.Point(168, 159);
+            this.DownloadButton.Name = "DownloadButton";
+            this.DownloadButton.Size = new System.Drawing.Size(75, 23);
+            this.DownloadButton.TabIndex = 7;
+            this.DownloadButton.Text = "DownLoad";
+            this.DownloadButton.UseVisualStyleBackColor = true;
+            this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.DownloadButton);
+            this.Controls.Add(this.AlbumsList);
+            this.Controls.Add(this.CountLabel);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.PassLabel);
             this.Controls.Add(this.LogLabel);
@@ -102,6 +136,9 @@
         private System.Windows.Forms.Label LogLabel;
         private System.Windows.Forms.Label PassLabel;
         private System.Windows.Forms.Button SubmitButton;
+        private System.Windows.Forms.Label CountLabel;
+        private System.Windows.Forms.ListBox AlbumsList;
+        private System.Windows.Forms.Button DownloadButton;
     }
 }
 
