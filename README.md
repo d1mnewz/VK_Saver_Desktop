@@ -7,6 +7,10 @@ Someday i decided to copy all of my saved photos in VK to my phone and PC. Well,
 - code is not that good as i want it to be
 - you can save only your albums
 - there is a bunch of opportunities to enter invalid data etc
+
+
 BUT
+
 wait a little while, im doing IT!
+
 <img src = "https://pp.vk.me/c638725/v638725859/b371/UbqA4nXHGJw.jpg"></img>
