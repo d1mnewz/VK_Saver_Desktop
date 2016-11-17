@@ -24,6 +24,16 @@ namespace VK_Saver_Desktop
         public ulong appId = Convert.ToUInt32(ConfigurationManager.AppSettings["appId"]);
         VkApi api;
         String folderName;
+
+        // TODO: strong code refactoring;
+        // TODO: separate files
+        // TODO: goodlooking flexible UI with multiple forms
+        // TODO: opportunity to save photos of other users 
+        // TODO: opportunity to save photos of community albums
+        // TODO: visualize thumb of every album
+        // TODO: opportunity to see photos of album
+        // TODO: create an additional VK account so user wont need to login by himself
+        // TODO: add regExp for loginBox and passBox
         public Form1()
         {
 
