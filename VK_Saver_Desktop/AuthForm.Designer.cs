@@ -36,14 +36,11 @@
             this.CountLabel = new System.Windows.Forms.Label();
             this.AlbumsList = new System.Windows.Forms.ListBox();
             this.DownloadButton = new System.Windows.Forms.Button();
-            this.CaptchBox = new System.Windows.Forms.PictureBox();
-            this.CaptchaTextBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchBox)).BeginInit();
             this.SuspendLayout();
             // 
             // LoginBox
             // 
+            this.LoginBox.BackColor = System.Drawing.Color.White;
             this.LoginBox.Location = new System.Drawing.Point(90, 46);
             this.LoginBox.Name = "LoginBox";
             this.LoginBox.Size = new System.Drawing.Size(153, 20);
@@ -56,6 +53,7 @@
             this.PassBox.PasswordChar = '*';
             this.PassBox.Size = new System.Drawing.Size(153, 20);
             this.PassBox.TabIndex = 1;
+            this.PassBox.Enter += new System.EventHandler(this.PassBox_Enter);
             // 
             // LogLabel
             // 
@@ -113,39 +111,11 @@
             this.DownloadButton.UseVisualStyleBackColor = true;
             this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
-            // CaptchBox
-            // 
-            this.CaptchBox.Location = new System.Drawing.Point(162, 200);
-            this.CaptchBox.Name = "CaptchBox";
-            this.CaptchBox.Size = new System.Drawing.Size(100, 50);
-            this.CaptchBox.TabIndex = 8;
-            this.CaptchBox.TabStop = false;
-            // 
-            // CaptchaTextBox
-            // 
-            this.CaptchaTextBox.Location = new System.Drawing.Point(56, 230);
-            this.CaptchaTextBox.Name = "CaptchaTextBox";
-            this.CaptchaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.CaptchaTextBox.TabIndex = 9;
-            this.CaptchaTextBox.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 227);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // AuthForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.CaptchaTextBox);
-            this.Controls.Add(this.CaptchBox);
             this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.AlbumsList);
             this.Controls.Add(this.CountLabel);
@@ -156,8 +126,6 @@
             this.Controls.Add(this.LoginBox);
             this.Name = "AuthForm";
             this.Text = "Form1";
-            
-            ((System.ComponentModel.ISupportInitialize)(this.CaptchBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,9 +141,6 @@
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.ListBox AlbumsList;
         private System.Windows.Forms.Button DownloadButton;
-        private System.Windows.Forms.PictureBox CaptchBox;
-        private System.Windows.Forms.TextBox CaptchaTextBox;
-        private System.Windows.Forms.Button button1;
     }
 }
 

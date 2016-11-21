@@ -17,27 +17,43 @@ using VkNet.Model;
 using VkNet.Enums.SafetyEnums;
 using VkNet.Model.Attachments;
 using VkNet.Exception;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
 
 namespace VK_Saver_Desktop
 {
     public partial class AuthForm : Form
     {
-        public ulong appId = Convert.ToUInt32(ConfigurationManager.AppSettings["appId"]);
-        VK_Saver_Helper helper;
-        String folderName;
+        public static ulong appId = Convert.ToUInt32(ConfigurationManager.AppSettings["appId"]);
+        public static VK_Saver_Helper helper;
+        public static ApiAuthParams authParams;
+        //String folderName;
 
         // TODO: strong code refactoring;
+        // started %) xd
+
         // TODO: separate files
+        // done
+        
         // TODO: goodlooking flexible UI with multiple forms
+
         // TODO: opportunity to save photos of other users 
+
         // TODO: opportunity to save photos of community albums
+
         // TODO: visualize thumb of every album
+
         // TODO: opportunity to see photos of album
+
         // TODO: create an additional VK account so user wont need to login by himself
         //              * but allow to login so user can download his private albums
-        // TODO: captcha handling with new Form.
-        // TODO: add regExp for loginBox and passBox
 
+        // TODO: captcha handling with new Form. 
+        // DONE BUT NOT TESTED
+
+        // TODO: add regExp for loginBox and passBox
+        // DONE
+       
         public AuthForm()
         {
 
@@ -47,11 +63,10 @@ namespace VK_Saver_Desktop
 
         }
 
-
         private void SubmitButton_Click(object sender, EventArgs e)
         {
 
-            ApiAuthParams authParams = new ApiAuthParams
+            authParams = new ApiAuthParams
             {
                 ApplicationId = appId,
                 Login = LoginBox.Text,
@@ -62,31 +77,36 @@ namespace VK_Saver_Desktop
             {
                 helper.apiInst.Authorize(authParams);
             }
+            catch (VkApiAuthorizationException ex)
+            {
+                MessageBox.Show("Invalid login&password combination. Try again.");
+            }
+
             catch (CaptchaNeededException ex)
             {
-                // create new form with picturebox(ex.img.absoluteUri) and textBox to type in captchaKey
-                // repeat while captchakey != true captchaKey
-                
-                MessageBox.Show(ex.Img.AbsoluteUri + ex.Img.UserInfo);
-                var request = WebRequest.Create(ex.Img.AbsoluteUri);
+                // done, but NOT TESTED
 
-                using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
+                // maybe add while(!helper.apiInst.IsAuthorized){body}
+
+                MessageBox.Show("Solve captcha!");
+                using (CaptchaForm cf = new CaptchaForm(ex))
                 {
-                    CaptchBox.Image = Bitmap.FromStream(stream);
+                    cf.Show();
                 }
-                CaptchaTextBox.Visible = true;
-               //helper.apiInst.Authorize()
-               //Button on click 
-                 helper.apiInst.Authorize((int)authParams.ApplicationId, authParams.Login, authParams.Password, authParams.Settings,null , ex.Sid, this.CaptchaTextBox.Text);
-                //this.CaptchBox.ImageLocation = ex.Img.AbsolutePath;
-                //this.CaptchBox.Load();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
             if (helper.apiInst.IsAuthorized)
             {
                 this.SubmitButton.Enabled = false;
-                MessageBox.Show(helper.GetCurrentUserID().ToString());
+                MessageBox.Show(String.Format("Logged as {0} {1}, id{2}.",
+                    helper.apiInst.Users.Get(helper.GetCurrentUserID()).FirstName,
+                    helper.apiInst.Users.Get(helper.GetCurrentUserID()).LastName,
+                    helper.GetCurrentUserID()));
                 helper.LoadUserAlbumsToList(this.AlbumsList);
                 if (this.AlbumsList.Items.Count > 0)
                     DownloadButton.Enabled = true;
@@ -99,17 +119,30 @@ namespace VK_Saver_Desktop
 
 
 
-        
+
         private void DownloadButton_Click(object sender, EventArgs e)
         {
             DownloadButton.Enabled = false;
-            
+
             helper.DownLoadCollection(helper.GetSelectedColl(this.AlbumsList));
             DownloadButton.Enabled = true;
 
         }
 
-       
+
+
+        private void PassBox_Enter(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(this.LoginBox.Text))
+            {
+                if (!helper.IsValidMail(this.LoginBox.Text) && !helper.IsValidPhone(this.LoginBox.Text))
+                {
+                    this.LoginBox.BackColor = Color.Red;
+                }
+                else
+                    this.LoginBox.BackColor = Color.White;
+            }
+        }
     }
 }
 

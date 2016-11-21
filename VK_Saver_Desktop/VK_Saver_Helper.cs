@@ -12,13 +12,16 @@ using VkNet.Model.Attachments;
 using System.IO;
 using VkNet.Enums.SafetyEnums;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Net.Mail;
 
 namespace VK_Saver_Desktop
 {
-    class VK_Saver_Helper
+    public class VK_Saver_Helper
     {
         public VkApi apiInst;
         String folderName;
+        
         public VK_Saver_Helper()
         {
             apiInst = new VkApi();
@@ -74,6 +77,7 @@ namespace VK_Saver_Desktop
                 }
             }
         }
+
         public long GetCurrentUserID()
         {
             if (apiInst.IsAuthorized)
@@ -157,6 +161,25 @@ namespace VK_Saver_Desktop
 
             list.Enabled = true;
 
+        }
+        public bool IsValidPhone(string phone)
+        {
+            return Regex.Match(phone, @"^((\+\d{3})|(\d{3}))\d{9,10}$").Success;
+            // explained https://regex101.com/r/EUUely/3 
+            
+        }
+        public bool IsValidMail(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
 

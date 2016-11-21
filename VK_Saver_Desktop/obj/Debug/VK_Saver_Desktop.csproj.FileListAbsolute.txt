@@ -14,3 +14,4 @@ H:\OneDrive\Visual Studio 2012\Projects\VK_Saver_Desktop\VK_Saver_Desktop\bin\De
 H:\OneDrive\Visual Studio 2012\Projects\VK_Saver_Desktop\VK_Saver_Desktop\bin\Debug\Newtonsoft.Json.xml
 H:\OneDrive\Visual Studio 2012\Projects\VK_Saver_Desktop\VK_Saver_Desktop\bin\Debug\VkNet.xml
 H:\OneDrive\Visual Studio 2012\Projects\VK_Saver_Desktop\VK_Saver_Desktop\obj\Debug\VK_Saver_Desktop.AuthForm.resources
+H:\OneDrive\Visual Studio 2012\Projects\VK_Saver_Desktop\VK_Saver_Desktop\obj\Debug\VK_Saver_Desktop.CaptchaForm.resources
