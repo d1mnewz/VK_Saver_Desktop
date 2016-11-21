@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.LoginBox = new System.Windows.Forms.TextBox();
             this.PassBox = new System.Windows.Forms.TextBox();
             this.LogLabel = new System.Windows.Forms.Label();
             this.PassLabel = new System.Windows.Forms.Label();
             this.SubmitButton = new System.Windows.Forms.Button();
-            this.CountLabel = new System.Windows.Forms.Label();
+            this.TimeLabel = new System.Windows.Forms.Label();
             this.AlbumsList = new System.Windows.Forms.ListBox();
             this.DownloadButton = new System.Windows.Forms.Button();
+            this.CurrentTimeTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // LoginBox
@@ -83,14 +85,14 @@
             this.SubmitButton.UseVisualStyleBackColor = true;
             this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
-            // CountLabel
+            // TimeLabel
             // 
-            this.CountLabel.AutoSize = true;
-            this.CountLabel.Location = new System.Drawing.Point(227, 9);
-            this.CountLabel.Name = "CountLabel";
-            this.CountLabel.Size = new System.Drawing.Size(35, 13);
-            this.CountLabel.TabIndex = 5;
-            this.CountLabel.Text = "label1";
+            this.TimeLabel.AutoSize = true;
+            this.TimeLabel.Location = new System.Drawing.Point(227, 9);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(47, 13);
+            this.TimeLabel.TabIndex = 5;
+            this.TimeLabel.Text = "4:20 AM";
             // 
             // AlbumsList
             // 
@@ -111,6 +113,11 @@
             this.DownloadButton.UseVisualStyleBackColor = true;
             this.DownloadButton.Click += new System.EventHandler(this.DownloadButton_Click);
             // 
+            // CurrentTimeTimer
+            // 
+            this.CurrentTimeTimer.Interval = 1000;
+            this.CurrentTimeTimer.Tick += new System.EventHandler(this.CurrentTimeTimer_Tick);
+            // 
             // AuthForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,7 +125,7 @@
             this.ClientSize = new System.Drawing.Size(284, 262);
             this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.AlbumsList);
-            this.Controls.Add(this.CountLabel);
+            this.Controls.Add(this.TimeLabel);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.PassLabel);
             this.Controls.Add(this.LogLabel);
@@ -138,9 +145,10 @@
         private System.Windows.Forms.Label LogLabel;
         private System.Windows.Forms.Label PassLabel;
         private System.Windows.Forms.Button SubmitButton;
-        private System.Windows.Forms.Label CountLabel;
+        private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.ListBox AlbumsList;
         private System.Windows.Forms.Button DownloadButton;
+        private System.Windows.Forms.Timer CurrentTimeTimer;
     }
 }
 

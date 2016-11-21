@@ -58,6 +58,7 @@ namespace VK_Saver_Desktop
         {
 
             InitializeComponent();
+            this.CurrentTimeTimer.Start();
             helper = new VK_Saver_Helper();
             this.DownloadButton.Enabled = false;
 
@@ -142,6 +143,11 @@ namespace VK_Saver_Desktop
                 else
                     this.LoginBox.BackColor = Color.White;
             }
+        }
+
+        private void CurrentTimeTimer_Tick(object sender, EventArgs e)
+        {
+            this.TimeLabel.Text = DateTime.Now.ToShortTimeString();
         }
     }
 }
