@@ -81,6 +81,7 @@ namespace VK_Saver_Desktop
             catch (VkApiAuthorizationException ex)
             {
                 MessageBox.Show("Invalid login&password combination. Try again.");
+                this.PassBox.Text = "";
             }
 
             catch (CaptchaNeededException ex)
@@ -92,7 +93,7 @@ namespace VK_Saver_Desktop
                 MessageBox.Show("Solve captcha!");
                 using (CaptchaForm cf = new CaptchaForm(ex))
                 {
-                    cf.Show();
+                    cf.ShowDialog();
                 }
 
             }
@@ -148,6 +149,14 @@ namespace VK_Saver_Desktop
         private void CurrentTimeTimer_Tick(object sender, EventArgs e)
         {
             this.TimeLabel.Text = DateTime.Now.ToShortTimeString();
+        }
+
+        private void AlbumsList_DoubleClick(object sender, EventArgs e)
+        {
+            using (PicturesOfAlbum picForm = new PicturesOfAlbum(helper.GetSelectedAlbum(this.AlbumsList)))
+            {
+                picForm.ShowDialog();
+            }
         }
     }
 }

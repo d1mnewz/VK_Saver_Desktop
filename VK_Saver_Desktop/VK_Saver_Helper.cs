@@ -21,7 +21,7 @@ namespace VK_Saver_Desktop
     {
         public VkApi apiInst;
         String folderName;
-        
+
         public VK_Saver_Helper()
         {
             apiInst = new VkApi();
@@ -36,42 +36,11 @@ namespace VK_Saver_Desktop
 
                 foreach (var el in list)
                 {
-                    if (el.Photo2560 != null)
-                    {
 
-                        client.DownloadFile(new Uri(el.Photo2560.ToString()),
+                        client.DownloadFile(new Uri(GetPhotoSrcLink(el)),
                                                             String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
 
-                    }
-                    else if (el.Photo1280 != null)
-                    {
-                        client.DownloadFile(new Uri(el.Photo1280.ToString()),
-                                            String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
-
-                    }
-                    else if (el.Photo807 != null)
-                    {
-                        client.DownloadFile(new Uri(el.Photo807.ToString()),
-                                String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
-                    }
-                    else if (el.Photo604 != null)
-                    {
-                        client.DownloadFile(new Uri(el.Photo604.ToString()),
-                                     String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
-
-                    }
-                    else if (el.Photo130 != null)
-                    {
-                        client.DownloadFile(new Uri(el.Photo130.ToString()),
-                                    String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
-
-                    }
-                    else if (el.Photo75 != null)
-                    {
-                        client.DownloadFile(
-                            new Uri(el.Photo75.ToString()),
-                           String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
-                    }
+                 
                     //count++;
                     //CountLabel.Text = String.Format("{0}/{1}", count, list.TotalCount);
                 }
@@ -87,6 +56,58 @@ namespace VK_Saver_Desktop
         public VkCollection<PhotoAlbum> GetCurrUserAlbumsAsColl()
         {
             return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
+        }
+        public PhotoAlbum GetSelectedAlbum(ListBox list)
+        {
+            var selected = list.Items[list.SelectedIndex].ToString();
+            var listAlbums = this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
+            switch (selected)
+            {
+
+                default:
+                    return listAlbums.First(x => x.Title == selected);
+            }
+
+            // return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
+        }
+        public String GetPhotoSrcLink(Photo ph)
+        {
+            if (ph.Photo2560 != null)
+            {
+
+                return ph.Photo2560.ToString();
+
+
+            }
+            else if (ph.Photo1280 != null)
+            {
+                return ph.Photo1280.ToString();
+
+
+            }
+            else if (ph.Photo807 != null)
+            {
+                return ph.Photo807.ToString();
+
+            }
+            else if (ph.Photo604 != null)
+            {
+                return ph.Photo604.ToString();
+
+            }
+            else if (ph.Photo130 != null)
+            {
+                return ph.Photo130.ToString();
+
+
+            }
+            else if (ph.Photo75 != null)
+            {
+
+                return ph.Photo75.ToString();
+
+            }
+            else return null;
         }
         public VkCollection<Photo> GetSelectedColl(ListBox list)
         {
@@ -166,7 +187,7 @@ namespace VK_Saver_Desktop
         {
             return Regex.Match(phone, @"^((\+\d{3})|(\d{3}))\d{9,10}$").Success;
             // explained https://regex101.com/r/EUUely/3 
-            
+
         }
         public bool IsValidMail(string emailaddress)
         {

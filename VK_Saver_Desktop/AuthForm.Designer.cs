@@ -102,6 +102,7 @@
             this.AlbumsList.Name = "AlbumsList";
             this.AlbumsList.Size = new System.Drawing.Size(120, 95);
             this.AlbumsList.TabIndex = 6;
+            this.AlbumsList.DoubleClick += new System.EventHandler(this.AlbumsList_DoubleClick);
             // 
             // DownloadButton
             // 
