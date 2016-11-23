@@ -37,15 +37,39 @@ namespace VK_Saver_Desktop
                 foreach (var el in list)
                 {
 
-                        client.DownloadFile(new Uri(GetPhotoSrcLink(el)),
-                                                            String.Format(@"{0}\n{1}.jpg ", folderName, el.Id));
+                    client.DownloadFile(new Uri(GetPhotoSrcLink(el)),
+                                                        String.Format(@"{0}\n{1}.jpg ",
+                                                        folderName, el.Id));
 
-                 
+
                     //count++;
                     //CountLabel.Text = String.Format("{0}/{1}", count, list.TotalCount);
                 }
             }
         }
+
+        public void DownloadPhoto(Photo photo)
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.DownloadFile(new Uri(GetPhotoSrcLink(photo)), String.Format(@"{0}\n{1}.jpg ",
+                                                        folderName, photo.Id));
+                client.Disposed += (sender, e) => MessageBox.Show(GetPhotoSrcLink(photo) + String.Format(" {0} is donwloaded.", photo.Id));
+            }
+
+        }
+        public void DownloadPhoto(String url)
+        {
+            using (WebClient client = new WebClient())
+            {
+                Uri uri = new Uri(url);
+                client.DownloadFile(uri, String.Format(@"{0}\n{1}.jpg ",
+                                                        folderName, uri.LocalPath));
+                client.Disposed += (sender, e) => MessageBox.Show(url + String.Format(" {0} is donwloaded.", uri.LocalPath));
+            }
+
+        }
+        
 
         public long GetCurrentUserID()
         {
@@ -57,19 +81,8 @@ namespace VK_Saver_Desktop
         {
             return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
         }
-        public PhotoAlbum GetSelectedAlbum(ListBox list)
-        {
-            var selected = list.Items[list.SelectedIndex].ToString();
-            var listAlbums = this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
-            switch (selected)
-            {
+        // delete someday
 
-                default:
-                    return listAlbums.First(x => x.Title == selected);
-            }
-
-            // return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
-        }
         public String GetPhotoSrcLink(Photo ph)
         {
             if (ph.Photo2560 != null)

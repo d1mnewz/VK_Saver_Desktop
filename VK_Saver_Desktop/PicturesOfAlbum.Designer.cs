@@ -62,7 +62,6 @@
             this.Controls.Add(this.PicturesPanel);
             this.Name = "PicturesOfAlbum";
             this.Text = "PicturesOfAlbum";
-            this.Load += new System.EventHandler(this.PicturesOfAlbum_Load);
             this.ResumeLayout(false);
 
         }

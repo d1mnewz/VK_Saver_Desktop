@@ -34,8 +34,9 @@ namespace VK_Saver_Desktop
 
         // TODO: separate files
         // done
-        
+
         // TODO: goodlooking flexible UI with multiple forms
+        // started
 
         // TODO: opportunity to save photos of other users 
 
@@ -44,16 +45,19 @@ namespace VK_Saver_Desktop
         // TODO: visualize thumb of every album
 
         // TODO: opportunity to see photos of album
+        // done but not perfectly; to rework
 
         // TODO: create an additional VK account so user wont need to login by himself
         //              * but allow to login so user can download his private albums
+        // OR to use methods that dont require auth
 
         // TODO: captcha handling with new Form. 
         // DONE BUT NOT TESTED
 
         // TODO: add regExp for loginBox and passBox
         // DONE
-       
+
+        // TODO: Install Jira or similar
         public AuthForm()
         {
 
@@ -105,15 +109,18 @@ namespace VK_Saver_Desktop
             if (helper.apiInst.IsAuthorized)
             {
                 this.SubmitButton.Enabled = false;
-                MessageBox.Show(String.Format("Logged as {0} {1}, id{2}.",
+                this.PassBox.Text = "";
+                this.LoginBox.Text = "";
+                this.Text = String.Format(@"{0} {1}, /id{2}.",
                     helper.apiInst.Users.Get(helper.GetCurrentUserID()).FirstName,
                     helper.apiInst.Users.Get(helper.GetCurrentUserID()).LastName,
-                    helper.GetCurrentUserID()));
+                    helper.GetCurrentUserID());
                 helper.LoadUserAlbumsToList(this.AlbumsList);
                 if (this.AlbumsList.Items.Count > 0)
                     DownloadButton.Enabled = true;
 
             }
+            else { this.Text = "VK AlbumSaver Tool"; }
 
         }
 
@@ -153,11 +160,13 @@ namespace VK_Saver_Desktop
 
         private void AlbumsList_DoubleClick(object sender, EventArgs e)
         {
-            using (PicturesOfAlbum picForm = new PicturesOfAlbum(helper.GetSelectedAlbum(this.AlbumsList)))
+            using (PicturesOfAlbum picForm = new PicturesOfAlbum(helper.GetSelectedColl(AlbumsList)))
             {
                 picForm.ShowDialog();
             }
         }
+
+
     }
 }
 

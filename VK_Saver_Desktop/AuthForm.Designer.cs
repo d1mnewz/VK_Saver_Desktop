@@ -38,6 +38,8 @@
             this.AlbumsList = new System.Windows.Forms.ListBox();
             this.DownloadButton = new System.Windows.Forms.Button();
             this.CurrentTimeTimer = new System.Windows.Forms.Timer(this.components);
+            this.ThumbPictureBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ThumbPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // LoginBox
@@ -106,7 +108,7 @@
             // 
             // DownloadButton
             // 
-            this.DownloadButton.Location = new System.Drawing.Point(168, 159);
+            this.DownloadButton.Location = new System.Drawing.Point(168, 127);
             this.DownloadButton.Name = "DownloadButton";
             this.DownloadButton.Size = new System.Drawing.Size(75, 23);
             this.DownloadButton.TabIndex = 7;
@@ -119,11 +121,20 @@
             this.CurrentTimeTimer.Interval = 1000;
             this.CurrentTimeTimer.Tick += new System.EventHandler(this.CurrentTimeTimer_Tick);
             // 
+            // ThumbPictureBox
+            // 
+            this.ThumbPictureBox.Location = new System.Drawing.Point(156, 156);
+            this.ThumbPictureBox.Name = "ThumbPictureBox";
+            this.ThumbPictureBox.Size = new System.Drawing.Size(100, 66);
+            this.ThumbPictureBox.TabIndex = 8;
+            this.ThumbPictureBox.TabStop = false;
+            // 
             // AuthForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.ThumbPictureBox);
             this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.AlbumsList);
             this.Controls.Add(this.TimeLabel);
@@ -133,7 +144,8 @@
             this.Controls.Add(this.PassBox);
             this.Controls.Add(this.LoginBox);
             this.Name = "AuthForm";
-            this.Text = "Form1";
+            this.Text = "VK AlbumSaver tool";
+            ((System.ComponentModel.ISupportInitialize)(this.ThumbPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,6 +162,7 @@
         private System.Windows.Forms.ListBox AlbumsList;
         private System.Windows.Forms.Button DownloadButton;
         private System.Windows.Forms.Timer CurrentTimeTimer;
+        private System.Windows.Forms.PictureBox ThumbPictureBox;
     }
 }
 

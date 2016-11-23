@@ -15,22 +15,28 @@ namespace VK_Saver_Desktop
 {
     public partial class PicturesOfAlbum : Form
     {
-        PhotoAlbum currentAlbum;
+        // currentAlbum;
         int counter;
-        VkCollection<Photo> coll;
+        VkCollection<Photo> CurrentColl;
         int sizeAlbum;
-        public PicturesOfAlbum(PhotoAlbum album)
+        public PicturesOfAlbum(VkCollection<Photo> coll)
         {
             InitializeComponent();
             this.PicturesPanel.AutoScroll = true;
-            
-            this.currentAlbum = album;
-            this.Text = album.Title + @"/" + album.OwnerId;
-            this.coll = AuthForm.helper.GetAlbumAsCollection(currentAlbum);
+
+            //this.currentAlbum = album;
+            this.CurrentColl = coll;
             sizeAlbum = coll.Count;
+            if (sizeAlbum > 0)
+            {
+                this.Text = String.Format(@"/{0}", CurrentColl[0].OwnerId);
+            }
+
             LoadMore();
 
         }
+
+
         public void LoadMore()
         {
 
@@ -38,14 +44,19 @@ namespace VK_Saver_Desktop
             {
                 // TODO: normal size of pictureboxes
                 PictureBox pic = new PictureBox();
-                pic.LoadAsync(AuthForm.helper.GetPhotoSrcLink(coll[counter]));
+                pic.LoadAsync(AuthForm.helper.GetPhotoSrcLink(this.CurrentColl[counter]));
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
 
+                // TODO: to attach a normal link to doubleClickEvent
+                // ITS BUGGED
+                pic.MouseDoubleClick += (sender, e) => AuthForm.helper.DownloadPhoto(CurrentColl[counter]);
 
 
                 pic.Size = new Size((int)(this.PicturesPanel.Size.Width / 3.3f), this.PicturesPanel.Size.Height / 2);
                 pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                pic.Cursor = Cursors.Hand;
 
+                pic.BorderStyle = BorderStyle.Fixed3D;
 
                 this.PicturesPanel.Controls.Add(pic);
 
@@ -53,10 +64,7 @@ namespace VK_Saver_Desktop
             }
         }
 
-        private void PicturesOfAlbum_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void LoadMoreButton_Click(object sender, EventArgs e)
         {
