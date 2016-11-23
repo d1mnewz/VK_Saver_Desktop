@@ -38,8 +38,8 @@
             this.AlbumsList = new System.Windows.Forms.ListBox();
             this.DownloadButton = new System.Windows.Forms.Button();
             this.CurrentTimeTimer = new System.Windows.Forms.Timer(this.components);
-            this.ThumbPictureBox = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.ThumbPictureBox)).BeginInit();
+            this.IdTextBox = new System.Windows.Forms.TextBox();
+            this.AlbumsByUserIdButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LoginBox
@@ -100,7 +100,7 @@
             // 
             this.AlbumsList.Enabled = false;
             this.AlbumsList.FormattingEnabled = true;
-            this.AlbumsList.Location = new System.Drawing.Point(15, 127);
+            this.AlbumsList.Location = new System.Drawing.Point(12, 155);
             this.AlbumsList.Name = "AlbumsList";
             this.AlbumsList.Size = new System.Drawing.Size(120, 95);
             this.AlbumsList.TabIndex = 6;
@@ -108,7 +108,7 @@
             // 
             // DownloadButton
             // 
-            this.DownloadButton.Location = new System.Drawing.Point(168, 127);
+            this.DownloadButton.Location = new System.Drawing.Point(199, 227);
             this.DownloadButton.Name = "DownloadButton";
             this.DownloadButton.Size = new System.Drawing.Size(75, 23);
             this.DownloadButton.TabIndex = 7;
@@ -121,20 +121,30 @@
             this.CurrentTimeTimer.Interval = 1000;
             this.CurrentTimeTimer.Tick += new System.EventHandler(this.CurrentTimeTimer_Tick);
             // 
-            // ThumbPictureBox
+            // IdTextBox
             // 
-            this.ThumbPictureBox.Location = new System.Drawing.Point(156, 156);
-            this.ThumbPictureBox.Name = "ThumbPictureBox";
-            this.ThumbPictureBox.Size = new System.Drawing.Size(100, 66);
-            this.ThumbPictureBox.TabIndex = 8;
-            this.ThumbPictureBox.TabStop = false;
+            this.IdTextBox.Location = new System.Drawing.Point(12, 130);
+            this.IdTextBox.Name = "IdTextBox";
+            this.IdTextBox.Size = new System.Drawing.Size(120, 20);
+            this.IdTextBox.TabIndex = 9;
+            // 
+            // AlbumsByUserIdButton
+            // 
+            this.AlbumsByUserIdButton.Location = new System.Drawing.Point(168, 130);
+            this.AlbumsByUserIdButton.Name = "AlbumsByUserIdButton";
+            this.AlbumsByUserIdButton.Size = new System.Drawing.Size(75, 23);
+            this.AlbumsByUserIdButton.TabIndex = 10;
+            this.AlbumsByUserIdButton.Text = "Get Albums";
+            this.AlbumsByUserIdButton.UseVisualStyleBackColor = true;
+            this.AlbumsByUserIdButton.Click += new System.EventHandler(this.AlbumsByUserIdButton_Click);
             // 
             // AuthForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.ThumbPictureBox);
+            this.Controls.Add(this.AlbumsByUserIdButton);
+            this.Controls.Add(this.IdTextBox);
             this.Controls.Add(this.DownloadButton);
             this.Controls.Add(this.AlbumsList);
             this.Controls.Add(this.TimeLabel);
@@ -145,7 +155,6 @@
             this.Controls.Add(this.LoginBox);
             this.Name = "AuthForm";
             this.Text = "VK AlbumSaver tool";
-            ((System.ComponentModel.ISupportInitialize)(this.ThumbPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,7 +171,8 @@
         private System.Windows.Forms.ListBox AlbumsList;
         private System.Windows.Forms.Button DownloadButton;
         private System.Windows.Forms.Timer CurrentTimeTimer;
-        private System.Windows.Forms.PictureBox ThumbPictureBox;
+        private System.Windows.Forms.TextBox IdTextBox;
+        private System.Windows.Forms.Button AlbumsByUserIdButton;
     }
 }
 

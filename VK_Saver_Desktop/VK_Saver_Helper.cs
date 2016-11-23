@@ -14,6 +14,7 @@ using VkNet.Enums.SafetyEnums;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Net.Mail;
+using VkNet.Exception;
 
 namespace VK_Saver_Desktop
 {
@@ -77,9 +78,9 @@ namespace VK_Saver_Desktop
                 return (long)apiInst.UserId;
             else return 0;
         }
-        public VkCollection<PhotoAlbum> GetCurrUserAlbumsAsColl()
+        public VkCollection<PhotoAlbum> GetUserAlbumsAsColl(long? userId)
         {
-            return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
+            return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = userId }, true);
         }
         // delete someday
 
@@ -122,35 +123,50 @@ namespace VK_Saver_Desktop
             }
             else return null;
         }
-        public VkCollection<Photo> GetSelectedColl(ListBox list)
+        public VkCollection<Photo> GetSelectedColl(ListBox list, long? userID)
         {
 
             var selected = list.Items[list.SelectedIndex].ToString();
-            var listAlbums = this.GetCurrUserAlbumsAsColl();
+            var listAlbums = this.GetUserAlbumsAsColl(userID);
             VkCollection<Photo> exactColl;
             if (selected == "Saved")
             {
 
-                exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Saved, OwnerId = this.GetCurrentUserID() });
-                folderName = this.FolderCheck("Saved", exactColl[0].OwnerId.ToString());
+                exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Saved, OwnerId = userID }, true);
+
 
 
             }
 
             else if (selected == "Wall")
             {
-                exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Wall, OwnerId = this.GetCurrentUserID() });
-                folderName = this.FolderCheck("Wall", exactColl[0].OwnerId.ToString());
-
+                exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Wall, OwnerId = userID }, true);
+                if (exactColl.Count > 0)
+                {
+                    folderName = this.FolderCheck("Wall", exactColl[0].OwnerId.ToString());
+                }
+                else { MessageBox.Show("No Photos available"); return null; }
             }
             else if (selected == "Profile")
             {
-                exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Profile, OwnerId = this.GetCurrentUserID() });
-                folderName = this.FolderCheck("Profile", exactColl[0].OwnerId.ToString());
+                exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Profile, OwnerId = userID }, true);
+                if (exactColl.Count > 0)
+                {
+                    folderName = this.FolderCheck("Profile", exactColl[0].OwnerId.ToString());
+                }
+                else { MessageBox.Show("No Photos available"); return null; }
 
             }
             else
+            {
                 exactColl = this.GetAlbumAsCollection(listAlbums.First(x => x.Title == selected));
+                if (exactColl.Count == 0)
+                {
+                    MessageBox.Show("No Photos available");
+                    return null;
+                }
+
+            }
             return exactColl;
 
         }
@@ -175,16 +191,23 @@ namespace VK_Saver_Desktop
         public VkCollection<Photo> GetAlbumAsCollection(PhotoAlbum album)
         {
             folderName = FolderCheck(album.Title.ToString(), album.OwnerId.ToString());
-
-            return this.apiInst.Photo.Get(new PhotoGetParams { OwnerId = album.OwnerId, AlbumId = PhotoAlbumType.Id(album.Id) });
-
+            try
+            {
+                return this.apiInst.Photo.Get(new PhotoGetParams { OwnerId = album.OwnerId, AlbumId = PhotoAlbumType.Id(album.Id) });
+            }
+            catch (AccessTokenInvalidException)
+            {
+                MessageBox.Show("Invalid access token.");
+            }
+            return null;
         }
 
 
 
-        public void LoadUserAlbumsToList(ListBox list)
+        public void LoadUserAlbumsToList(ListBox list, long? userID)
         {
-            var listOfAlbums = apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = this.GetCurrentUserID() });
+            list.Items.Clear();
+            var listOfAlbums = apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = userID }, true);
             list.Items.Add("Profile");
             list.Items.Add("Wall");
             list.Items.Add("Saved");

@@ -111,11 +111,12 @@ namespace VK_Saver_Desktop
                 this.SubmitButton.Enabled = false;
                 this.PassBox.Text = "";
                 this.LoginBox.Text = "";
+                this.IdTextBox.Text = helper.GetCurrentUserID().ToString();
                 this.Text = String.Format(@"{0} {1}, /id{2}.",
                     helper.apiInst.Users.Get(helper.GetCurrentUserID()).FirstName,
                     helper.apiInst.Users.Get(helper.GetCurrentUserID()).LastName,
                     helper.GetCurrentUserID());
-                helper.LoadUserAlbumsToList(this.AlbumsList);
+                helper.LoadUserAlbumsToList(this.AlbumsList, helper.GetCurrentUserID());
                 if (this.AlbumsList.Items.Count > 0)
                     DownloadButton.Enabled = true;
 
@@ -125,15 +126,23 @@ namespace VK_Saver_Desktop
         }
 
 
+        public bool ValidId(string text)
+        {
+            long tempNum = 0;
+            return Int64.TryParse(text, out tempNum);
 
+        }
 
 
 
         private void DownloadButton_Click(object sender, EventArgs e)
         {
             DownloadButton.Enabled = false;
+            if (ValidId(this.IdTextBox.Text))
+            {
+                helper.DownLoadCollection(helper.GetSelectedColl(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text)));
 
-            helper.DownLoadCollection(helper.GetSelectedColl(this.AlbumsList));
+            }
             DownloadButton.Enabled = true;
 
         }
@@ -160,13 +169,36 @@ namespace VK_Saver_Desktop
 
         private void AlbumsList_DoubleClick(object sender, EventArgs e)
         {
-            using (PicturesOfAlbum picForm = new PicturesOfAlbum(helper.GetSelectedColl(AlbumsList)))
+            long? userID;
+            if (ValidId(this.IdTextBox.Text))
             {
-                picForm.ShowDialog();
+                userID = Convert.ToInt64(this.IdTextBox.Text);
+            }
+            else userID = helper.GetCurrentUserID();
+            var selectedColl = helper.GetSelectedColl(this.AlbumsList, userID);
+            if (selectedColl != null)
+
+            {
+
+                using (PicturesOfAlbum picForm = new PicturesOfAlbum(selectedColl))
+                {
+                    picForm.ShowDialog();
+                }
+
             }
         }
 
+        private void AlbumsByUserIdButton_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(this.IdTextBox.Text))
+            {
+                if (helper.apiInst.IsAuthorized)
+                    helper.LoadUserAlbumsToList(this.AlbumsList, helper.GetCurrentUserID());
+            }
+            else helper.LoadUserAlbumsToList(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text));
+            DownloadButton.Enabled = true;
 
+        }
     }
 }
 

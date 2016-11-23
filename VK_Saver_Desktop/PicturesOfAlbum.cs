@@ -22,18 +22,20 @@ namespace VK_Saver_Desktop
         public PicturesOfAlbum(VkCollection<Photo> coll)
         {
             InitializeComponent();
-            this.PicturesPanel.AutoScroll = true;
+            
+                this.PicturesPanel.AutoScroll = true;
 
-            //this.currentAlbum = album;
-            this.CurrentColl = coll;
-            sizeAlbum = coll.Count;
-            if (sizeAlbum > 0)
-            {
-                this.Text = String.Format(@"/{0}", CurrentColl[0].OwnerId);
-            }
+                //this.currentAlbum = album;
+                this.CurrentColl = coll;
+                sizeAlbum = coll.Count;
+                if (sizeAlbum > 0)
+                {
+                    this.Text = String.Format(@"/{0}", CurrentColl[0].OwnerId);
+                }
 
-            LoadMore();
-
+                LoadMore();
+            
+            
         }
 
 
