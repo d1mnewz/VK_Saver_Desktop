@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthForm));
             this.LoginBox = new System.Windows.Forms.TextBox();
             this.PassBox = new System.Windows.Forms.TextBox();
             this.LogLabel = new System.Windows.Forms.Label();
@@ -153,6 +154,7 @@
             this.Controls.Add(this.LogLabel);
             this.Controls.Add(this.PassBox);
             this.Controls.Add(this.LoginBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AuthForm";
             this.Text = "VK AlbumSaver tool";
             this.ResumeLayout(false);

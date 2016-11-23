@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CaptchaForm));
             this.CaptchaPictureBox = new System.Windows.Forms.PictureBox();
             this.CaptchaTextBox = new System.Windows.Forms.TextBox();
             this.SendCaptchaButton = new System.Windows.Forms.Button();
@@ -69,6 +70,7 @@
             this.Controls.Add(this.CaptchaTextBox);
             this.Controls.Add(this.CaptchaPictureBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CaptchaForm";
             this.Text = "CaptchaForm";
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();

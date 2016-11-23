@@ -160,6 +160,7 @@ namespace VK_Saver_Desktop
                 else
                     this.LoginBox.BackColor = Color.White;
             }
+            else this.LoginBox.BackColor = Color.White;
         }
 
         private void CurrentTimeTimer_Tick(object sender, EventArgs e)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PicturesOfAlbum));
             this.PicturesPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.LoadMoreButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             this.ClientSize = new System.Drawing.Size(669, 404);
             this.Controls.Add(this.LoadMoreButton);
             this.Controls.Add(this.PicturesPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PicturesOfAlbum";
             this.Text = "PicturesOfAlbum";
             this.ResumeLayout(false);
