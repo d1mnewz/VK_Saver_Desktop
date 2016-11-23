@@ -190,14 +190,19 @@ namespace VK_Saver_Desktop
 
         private void AlbumsByUserIdButton_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(this.IdTextBox.Text))
+            
+
+            if(ValidId(this.IdTextBox.Text))
+                helper.LoadUserAlbumsToList(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text));
+            else if (String.IsNullOrEmpty(this.IdTextBox.Text))
             {
                 if (helper.apiInst.IsAuthorized)
                     helper.LoadUserAlbumsToList(this.AlbumsList, helper.GetCurrentUserID());
             }
-            else helper.LoadUserAlbumsToList(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text));
-            DownloadButton.Enabled = true;
-
+            if (AlbumsList.Items.Count > 0)
+            {
+                DownloadButton.Enabled = true;
+            }
         }
     }
 }
