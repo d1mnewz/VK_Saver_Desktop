@@ -109,8 +109,13 @@ namespace VK_Saver_Desktop
             if (helper.apiInst.IsAuthorized)
             {
                 this.SubmitButton.Enabled = false;
+                
                 this.PassBox.Text = "";
                 this.LoginBox.Text = "";
+                this.LoginBox.BackColor = Color.Empty;
+
+                this.LoginBox.Enabled = false;
+                this.PassBox.Enabled = false;
                 this.IdTextBox.Text = helper.GetCurrentUserID().ToString();
                 this.Text = String.Format(@"{0} {1}, /id{2}.",
                     helper.apiInst.Users.Get(helper.GetCurrentUserID()).FirstName,
@@ -161,6 +166,8 @@ namespace VK_Saver_Desktop
                     this.LoginBox.BackColor = Color.White;
             }
             else this.LoginBox.BackColor = Color.White;
+
+            
         }
 
         private void CurrentTimeTimer_Tick(object sender, EventArgs e)

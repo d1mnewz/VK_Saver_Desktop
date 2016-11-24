@@ -29,7 +29,7 @@ namespace VK_Saver_Desktop
         }
         public void DownLoadCollection(VkCollection<Photo> list)
         {
-
+            
             using (WebClient client = new WebClient())
             {
 
@@ -133,7 +133,11 @@ namespace VK_Saver_Desktop
             {
 
                 exactColl = this.apiInst.Photo.Get(new PhotoGetParams { AlbumId = PhotoAlbumType.Saved, OwnerId = userID }, true);
-
+                if (exactColl.Count > 0)
+                {
+                    folderName = this.FolderCheck("Saved", exactColl[0].OwnerId.ToString());
+                }
+                else { MessageBox.Show("No Photos available"); return null; }
 
 
             }
