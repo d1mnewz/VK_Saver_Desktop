@@ -21,6 +21,7 @@ namespace VK_Saver_Desktop
         {
             InitializeComponent();
             this.usedException = ex;
+            this.CaptchaPictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
             LoadCaptcha();
 
             //this.CaptchaPictureBox.

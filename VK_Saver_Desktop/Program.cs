@@ -16,7 +16,7 @@ namespace VK_Saver_Desktop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AuthForm());
+            Application.Run(new AuthForm()); // AuthForm starts first.
         }
     }
 }

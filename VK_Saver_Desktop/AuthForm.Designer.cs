@@ -157,6 +157,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AuthForm";
             this.Text = "VK AlbumSaver tool";
+           
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -57,7 +57,7 @@
             this.SendCaptchaButton.Name = "SendCaptchaButton";
             this.SendCaptchaButton.Size = new System.Drawing.Size(75, 23);
             this.SendCaptchaButton.TabIndex = 2;
-            this.SendCaptchaButton.Text = "button1";
+            this.SendCaptchaButton.Text = "Ok!";
             this.SendCaptchaButton.UseVisualStyleBackColor = true;
             this.SendCaptchaButton.Click += new System.EventHandler(this.SendCaptchaButton_Click);
             // 
@@ -65,14 +65,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 138);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(280, 140);
             this.Controls.Add(this.SendCaptchaButton);
             this.Controls.Add(this.CaptchaTextBox);
             this.Controls.Add(this.CaptchaPictureBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CaptchaForm";
-            this.Text = "CaptchaForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Captcha";
             ((System.ComponentModel.ISupportInitialize)(this.CaptchaPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

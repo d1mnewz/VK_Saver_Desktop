@@ -27,13 +27,11 @@ namespace VK_Saver_Desktop
         public static ulong appId = Convert.ToUInt32(ConfigurationManager.AppSettings["appId"]);
         public static VK_Saver_Helper helper;
         public static ApiAuthParams authParams;
-        //String folderName;
+       
 
         // TODO: strong code refactoring;
         // started %) xd
 
-        // TODO: separate files
-        // done
 
         // TODO: goodlooking flexible UI with multiple forms
         // started
@@ -51,13 +49,26 @@ namespace VK_Saver_Desktop
         //              * but allow to login so user can download his private albums
         // OR to use methods that dont require auth
 
-        // TODO: captcha handling with new Form. 
-        // DONE BUT NOT TESTED
+        
 
-        // TODO: add regExp for loginBox and passBox
-        // DONE
+        
 
-        // TODO: Install Jira or similar
+        
+
+        // TODO: separate login and choosing user to show albums;
+        // TODO: an opportunity to select user not only by long? id but by /durov like id.
+        //          * maybe to use apiInst.Call() || apiInst.Execute() ?
+
+        // TODO: make a presentation of this app on youtube in english
+        //          * write a good text ( at some point i faced a problem blah blah blah...)
+        //          * to up bandicam on home PC
+        //          * to make it look and sound good.
+        //
+
+        // a radiobutton in left top that shows connection to internet.
+        //          * make it async 
+        //          * maybe by pinging oauth.vk.com
+
         public AuthForm()
         {
 
@@ -90,11 +101,9 @@ namespace VK_Saver_Desktop
 
             catch (CaptchaNeededException ex)
             {
-                // done, but NOT TESTED
+               // tested works fine
 
-                // maybe add while(!helper.apiInst.IsAuthorized){body}
-
-                MessageBox.Show("Solve captcha!");
+                
                 using (CaptchaForm cf = new CaptchaForm(ex))
                 {
                     cf.ShowDialog();
@@ -212,6 +221,8 @@ namespace VK_Saver_Desktop
                 DownloadButton.Enabled = true;
             }
         }
+
+
     }
 }
 
