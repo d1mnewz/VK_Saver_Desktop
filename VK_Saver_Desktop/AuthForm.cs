@@ -140,19 +140,14 @@ namespace VK_Saver_Desktop
         }
 
 
-        public bool ValidNumberId(string text)
-        {
-            long tempNum = 0;
-            return Int64.TryParse(text, out tempNum);
 
-        }
 
 
 
         private void DownloadButton_Click(object sender, EventArgs e)
         {
             DownloadButton.Enabled = false;
-            if (ValidNumberId(this.IdTextBox.Text))
+            if (helper.ValidNumberId(this.IdTextBox.Text))
             {
                 helper.DownLoadCollection(helper.GetSelectedColl(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text)));
 
@@ -165,7 +160,7 @@ namespace VK_Saver_Desktop
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                 }
             }
 
@@ -201,7 +196,7 @@ namespace VK_Saver_Desktop
         {
             long? userID;
             VkCollection<Photo> selectedColl = null;
-            if (ValidNumberId(this.IdTextBox.Text))
+            if (helper.ValidNumberId(this.IdTextBox.Text))
             {
                 userID = Convert.ToInt64(this.IdTextBox.Text);
                 selectedColl = helper.GetSelectedColl(this.AlbumsList, userID);
@@ -244,7 +239,7 @@ namespace VK_Saver_Desktop
             // helper.apiInst.Users.Get(this.IdTextBox.Text).Id;
 
 
-            if (ValidNumberId(this.IdTextBox.Text))
+            if (helper.ValidNumberId(this.IdTextBox.Text))
             {
                 helper.LoadUserAlbumsToList(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text));
             }

@@ -258,6 +258,12 @@ namespace VK_Saver_Desktop
             // explained https://regex101.com/r/EUUely/3 
 
         }
+        public bool ValidNumberId(string text)
+        {
+            long tempNum = 0;
+            return Int64.TryParse(text, out tempNum);
+
+        }
         public bool IsValidMail(string emailaddress)
         {
             try
