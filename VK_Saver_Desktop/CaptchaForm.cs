@@ -58,13 +58,18 @@ namespace VK_Saver_Desktop
                 });
 
             }
+            catch (VkApiAuthorizationException ex)
+            {
+                MessageBox.Show("Invalid login&password combination. Try again.");
+                
+            }
             catch (CaptchaNeededException ex)
             {
                 MessageBox.Show("Invalid captcha");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something is wrong. Try Again.");
             }
             finally
             {

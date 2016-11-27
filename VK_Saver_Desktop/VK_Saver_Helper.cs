@@ -82,6 +82,10 @@ namespace VK_Saver_Desktop
         {
             return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = userId }, true);
         }
+        public VkCollection<PhotoAlbum> GetUserAlbumsAsColl(String screen_name)
+        {
+            return this.apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = apiInst.Users.Get(screen_name, null, null, true).Id }, true);
+        }
         // delete someday
 
         public String GetPhotoSrcLink(Photo ph)
@@ -174,6 +178,14 @@ namespace VK_Saver_Desktop
             return exactColl;
 
         }
+        public VkCollection<Photo> GetSelectedColl(ListBox list, String screen_name)
+        {
+
+            
+            long? userId = apiInst.Users.Get(screen_name, null, null, true).Id;
+            return GetSelectedColl(list, userId);
+
+        }
         public String FolderCheck(string AlbumId, string UserId)
         {
 
@@ -212,6 +224,23 @@ namespace VK_Saver_Desktop
         {
             list.Items.Clear();
             var listOfAlbums = apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = userID }, true);
+            list.Items.Add("Profile");
+            list.Items.Add("Wall");
+            list.Items.Add("Saved");
+            foreach (var el in listOfAlbums)
+            {
+                list.Items.Add(el.Title);
+            }
+
+            list.Enabled = true;
+
+        }
+
+        public void LoadUserAlbumsToList(ListBox list, String screen_name)
+        {
+            list.Items.Clear();
+
+            var listOfAlbums = apiInst.Photo.GetAlbums(new PhotoGetAlbumsParams { OwnerId = apiInst.Users.Get(screen_name, null, null, true).Id }, true);
             list.Items.Add("Profile");
             list.Items.Add("Wall");
             list.Items.Add("Saved");

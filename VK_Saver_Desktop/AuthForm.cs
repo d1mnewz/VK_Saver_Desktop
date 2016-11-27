@@ -27,7 +27,7 @@ namespace VK_Saver_Desktop
         public static ulong appId = Convert.ToUInt32(ConfigurationManager.AppSettings["appId"]);
         public static VK_Saver_Helper helper;
         public static ApiAuthParams authParams;
-       
+
 
         // TODO: strong code refactoring;
         // started %) xd
@@ -49,15 +49,15 @@ namespace VK_Saver_Desktop
         //              * but allow to login so user can download his private albums
         // OR to use methods that dont require auth
 
-        
 
-        
 
-        
+
+
+
 
         // TODO: separate login and choosing user to show albums;
         // TODO: an opportunity to select user not only by long? id but by /durov like id.
-        //          * maybe to use apiInst.Call() || apiInst.Execute() ?
+        //          * maybe to use apiInst.Call() || apiInst.Execute() || api.Invoke()
 
         // TODO: make a presentation of this app on youtube in english
         //          * write a good text ( at some point i faced a problem blah blah blah...)
@@ -101,9 +101,9 @@ namespace VK_Saver_Desktop
 
             catch (CaptchaNeededException ex)
             {
-               // tested works fine
+                // tested works fine
 
-                
+
                 using (CaptchaForm cf = new CaptchaForm(ex))
                 {
                     cf.ShowDialog();
@@ -112,13 +112,13 @@ namespace VK_Saver_Desktop
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Something bad happend. Try again.");
             }
 
             if (helper.apiInst.IsAuthorized)
             {
                 this.SubmitButton.Enabled = false;
-                
+
                 this.PassBox.Text = "";
                 this.LoginBox.Text = "";
                 this.LoginBox.BackColor = Color.Empty;
@@ -140,7 +140,7 @@ namespace VK_Saver_Desktop
         }
 
 
-        public bool ValidId(string text)
+        public bool ValidNumberId(string text)
         {
             long tempNum = 0;
             return Int64.TryParse(text, out tempNum);
@@ -152,11 +152,23 @@ namespace VK_Saver_Desktop
         private void DownloadButton_Click(object sender, EventArgs e)
         {
             DownloadButton.Enabled = false;
-            if (ValidId(this.IdTextBox.Text))
+            if (ValidNumberId(this.IdTextBox.Text))
             {
                 helper.DownLoadCollection(helper.GetSelectedColl(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text)));
 
             }
+            else
+            {
+                try
+                {
+                    helper.DownLoadCollection(helper.GetSelectedColl(this.AlbumsList, this.IdTextBox.Text));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
             DownloadButton.Enabled = true;
 
         }
@@ -176,7 +188,7 @@ namespace VK_Saver_Desktop
             }
             else this.LoginBox.BackColor = Color.White;
 
-            
+
         }
 
         private void CurrentTimeTimer_Tick(object sender, EventArgs e)
@@ -184,15 +196,37 @@ namespace VK_Saver_Desktop
             this.TimeLabel.Text = DateTime.Now.ToShortTimeString();
         }
 
+
         private void AlbumsList_DoubleClick(object sender, EventArgs e)
         {
             long? userID;
-            if (ValidId(this.IdTextBox.Text))
+            VkCollection<Photo> selectedColl = null;
+            if (ValidNumberId(this.IdTextBox.Text))
             {
                 userID = Convert.ToInt64(this.IdTextBox.Text);
+                selectedColl = helper.GetSelectedColl(this.AlbumsList, userID);
+
             }
-            else userID = helper.GetCurrentUserID();
-            var selectedColl = helper.GetSelectedColl(this.AlbumsList, userID);
+            else if (String.IsNullOrEmpty(this.IdTextBox.Text))
+            {
+                if (helper.apiInst.IsAuthorized)
+                    helper.LoadUserAlbumsToList(this.AlbumsList, helper.GetCurrentUserID());
+            }
+            else
+            {
+                try
+                {
+                    selectedColl = helper.GetSelectedColl(this.AlbumsList, this.IdTextBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+
+
+
+
             if (selectedColl != null)
 
             {
@@ -207,15 +241,32 @@ namespace VK_Saver_Desktop
 
         private void AlbumsByUserIdButton_Click(object sender, EventArgs e)
         {
-            
+            // helper.apiInst.Users.Get(this.IdTextBox.Text).Id;
 
-            if(ValidId(this.IdTextBox.Text))
+
+            if (ValidNumberId(this.IdTextBox.Text))
+            {
                 helper.LoadUserAlbumsToList(this.AlbumsList, Convert.ToInt64(this.IdTextBox.Text));
+            }
             else if (String.IsNullOrEmpty(this.IdTextBox.Text))
             {
                 if (helper.apiInst.IsAuthorized)
                     helper.LoadUserAlbumsToList(this.AlbumsList, helper.GetCurrentUserID());
             }
+            else
+            {
+                try
+                {
+                    helper.LoadUserAlbumsToList(this.AlbumsList, this.IdTextBox.Text);
+                    // LoadUserAlbumsToList is overloaded and takes (listbox, long) or (listbox, string)
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+
             if (AlbumsList.Items.Count > 0)
             {
                 DownloadButton.Enabled = true;

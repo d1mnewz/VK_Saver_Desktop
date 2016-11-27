@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VK_Saver_Desktop.exe" size="556496">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VK_Saver_Desktop.exe" size="557008">
       <assemblyIdentity name="VK_Saver_Desktop" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>q2fl919ZM6eGFO0RDf1Nr0tje5K0SprccAFHHqPcT60=</dsig:DigestValue>
+        <dsig:DigestValue>41rUhqCMvNN6IQWHQvr5KFfOgtABxcBHUGZV6UIFSRs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
