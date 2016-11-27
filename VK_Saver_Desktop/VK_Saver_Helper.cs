@@ -29,6 +29,9 @@ namespace VK_Saver_Desktop
         }
         public void DownLoadCollection(VkCollection<Photo> list)
         {
+            // to handle case with 1k+ photos in album
+            // maybe make IEnumerable<VkCollection<Photo>> lists as argument?
+            // and use yield return in GetCollection?
             
             using (WebClient client = new WebClient())
             {
